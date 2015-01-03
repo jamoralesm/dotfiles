@@ -1,0 +1,49 @@
+#avoid flicker
+double_buffer yes
+
+#own window to run simultanious 2 or more conkys
+own_window yes
+own_window_transparent yes
+own_window_type desktop
+own_window_hints undecorate,sticky,skip_taskbar,skip_pager
+
+#borders
+draw_borders no
+border_inner_margin 3
+
+#shades
+draw_shades no
+
+#position
+gap_x 0
+gap_y 4
+alignment buttom_middle
+
+#behaviour
+update_interval 1
+
+#colour
+default_color  E0DFDE
+#default_shade_color 000000
+own_window_colour 333333
+
+#font
+use_xft yes
+xftfont sans:size=10
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+#to prevent window from moving
+use_spacer none
+minimum_size 1280 0
+maximum_width 1280
+
+#mpd
+#mpd_host localhost
+#mpd_port 6600
+
+TEXT
+#${alignc}Date: ${color 1994d1}${time %d/%m/%y}${color}  Time: ${color 1994d1}${time %H:%M}${color}  |
+${alignc}${if_running mocp}${exec mocp -Q %file | sed -e 's_/.*/__' -e 's_\..\{3\}$__' -e 's/_/ /g'} :: ${exec mocp -Q %tl} / ${exec mocp -Q %tt} [ ${exec mocp -Q %state} ] $endif
+${alignc}Kernel: ${color 1994d1}$kernel${color}  Uptime: ${color 1994d1}${uptime_short}${color}  |  CPU: ${color 1994d1}${cpu cpu1}%${color}  RAM: ${color 1994d1}${memperc}%${color}  Swap: ${color 1994d1}${swapperc}%${color}  |  Root: ${color 1994d1}${fs_used_perc /}%${color} Var: ${color 1994d1}${fs_used_perc /var}%${color}  Home: ${color 1994d1}${fs_used_perc /home}%${color}  |  CPU: ${color 1994d1}${execi 300 sensors | grep Physical | cut -c17-21;}°C${color} Disk: ${color 1994d1}${hddtemp /dev/sda}°C${color}  |  ${if_existing /proc/net/route wlp3s0}Up: ${color 1994d1}${upspeedf wlp3s0} kb/s${color}  Down: ${color 1994d1}${downspeedf wlp3s0} kb/s${color}${else}${if_existing /proc/net/route enp12s0}Up: ${color 1994d1}${upspeedf enp12s0} kb/s${color}  Down: ${color 1994d1}${downspeedf enp12s0} kb/s${color}${else}${if_existing /proc/net/route ppp0}Up: ${color 1994d1}${upspeedf ppp0} kb/s${color}  Down: ${color 1994d1}${downspeedf ppp0} kb/s${color}${else}Network Unavailable${endif}${endif}${endif}
