@@ -33,6 +33,7 @@ nitrogen --restore &
 (sleep 3s && xpad) &
 (sleep 3s && guake) &
 (sleep 3s && clipit) &
+(sleep 3s && dropboxd) &
 
 
 ## Optionally enable file manager in daemon mode for automounting

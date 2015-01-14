@@ -22,13 +22,16 @@ Plugin 'joonty/vim-phpqa.git'
 Plugin 'Lokaltog/vim-easymotion.git'
 Plugin 'tpope/vim-surround.git'
 Plugin 'nelstrom/vim-visual-star-search.git'
-Plugin 'msanders/snipmate.vim.git'
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'tpope/vim-fugitive.git'
 Plugin 'vim-scripts/loremipsum.git'
 Plugin 'rstacruz/sparkup.git'
 Plugin 'cakebaker/scss-syntax.vim.git'
 Plugin 'tpope/vim-unimpaired.git'
+Plugin 'tommcdo/vim-exchange'
+" Plugin 'msanders/snipmate.vim.git'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
 " Colors
 Plugin 'nanotech/jellybeans.vim'
@@ -38,7 +41,14 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Use the colorscheme from above
+set t_Co=256
 colorscheme jellybeans
+
+" let g:jellybeans_overrides = {
+" \    'Todo': { 'guifg': '303030', 'guibg': 'f0f000',
+" \              'ctermfg': 'Black', 'ctermbg': 'Yellow',
+" \              'attr': 'bold' },
+" \}
 
 " Leader Key is \ or , but can be set with
 let mapleader=","
@@ -75,7 +85,15 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+set undodir=~/.vim/undodir
+set undofile
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+
+set cm=blowfish
+
 if has("autocmd")
+    autocmd!
     " Reload VIM configuration
     autocmd bufwritepost .vimrc source $MYVIMRC
 
@@ -91,6 +109,8 @@ if has("autocmd")
     " Treat .rss files as XML
     autocmd BufNewFile,BufRead *.rss setfiletype xml
 
+    " Enable syntax highlighting
+    syntax on
     " Enable filetype detection
     filetype plugin indent on
 
@@ -99,10 +119,6 @@ if has("autocmd")
                 \ if line("'\"") > 1 && line("'\"") <= line("$") |
                 \   exe "normal! g`\"" |
                 \ endif
-endif
-if &t_Co > 2 || has("gui_running")
-    " Enable syntax highlighting
-    syntax on
 endif
 
 if has('gui_running')
@@ -143,6 +159,12 @@ set spelllang=es
 " Plugins
 " --------------------------------------------------------------------
 
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+
 "https://github.com/bling/vim-airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -168,7 +190,9 @@ nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>a: :Tabularize /:\zs<CR>
-nmap <Leader>a; :Tabularize /;<CR>
+nmap <Leader>a- :Tabularize /-<CR>
+nmap <Leader>a- :Tabularize /-<CR>
+vmap <Leader>a; :Tabularize /;<CR>
 vmap <Leader>a; :Tabularize /;<CR>
 nmap <Leader>a< :Tabularize /=><CR>
 vmap <Leader>a< :Tabularize /=><CR>
@@ -297,9 +321,24 @@ map <leader>et :tabe %%
 
 map <leader>ec :tabe application/modules/
 
-" --------------------------------------------------------------------
+" -----------------------------------------------------------------------------
+" RENAME CURRENT FILE (thanks Gary Bernhardt)
+" -----------------------------------------------------------------------------
+
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <Leader>n :call RenameFile()<cr>
+
+" -----------------------------------------------------------------------------
 " Funciones vimcast.org
-" --------------------------------------------------------------------
+" -----------------------------------------------------------------------------
 
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
@@ -353,10 +392,32 @@ function! <SID>SynStack()
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
+" nelstrom
+function! FormatprgLocal(filter)
+    if !empty(v:char)
+        return 1
+    else
+        let l:command = v:lnum.','.(v:lnum+v:count-1).'!'.a:filter
+        echo l:command
+        execute l:command
+    endif
+endfunction
+" if has("autocmd")
+"     augroup ragtag_filetypes
+"         autocmd!
+"         autocmd FileType markdown call RagtagInit()
+"     augroup END
+"     let pandoc_pipeline = "pandoc --from=html --to=markdown"
+"     let pandoc_pipeline .= " | pandoc --from=markdown --to=html"
+"     autocmd FileType html setlocal formatexpr=FormatprgLocal(pandoc_pipeline)
+" endif
+
+
 " --------------------------------------------------------------------
 " MIAS
 " --------------------------------------------------------------------
-nmap <Leader>d Yp
+nmap <Leader>d @='Yp'<CR>
+vmap <Leader>d ygv<ESC>pgv
 nmap <Leader>k ^di'O<ESC>pa AS <ESC>j^dt(di'k$pjdd
 vmap <Leader>k "yyoecho '<pre> '; print_r()<ESC>"yPA; echo '</pre>';<ESC>F$ve"yy^f>"yp
 nmap <Leader>' vi(S'
