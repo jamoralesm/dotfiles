@@ -22,7 +22,7 @@ Plugin 'joonty/vim-phpqa.git'
 Plugin 'Lokaltog/vim-easymotion.git'
 Plugin 'tpope/vim-surround.git'
 Plugin 'nelstrom/vim-visual-star-search.git'
-Plugin 'scrooloose/nerdtree.git'
+" Plugin 'scrooloose/nerdtree.git'
 Plugin 'tpope/vim-fugitive.git'
 Plugin 'vim-scripts/loremipsum.git'
 Plugin 'rstacruz/sparkup.git'
@@ -35,6 +35,7 @@ Plugin 'honza/vim-snippets'
 
 " Colors
 Plugin 'nanotech/jellybeans.vim'
+Plugin 'altercation/vim-colors-solarized'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -42,8 +43,14 @@ filetype plugin indent on    " required
 
 " Use the colorscheme from above
 set t_Co=256
-colorscheme jellybeans
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+colorscheme solarized
 
+" colorscheme jellybeans
 " let g:jellybeans_overrides = {
 " \    'Todo': { 'guifg': '303030', 'guibg': 'f0f000',
 " \              'ctermfg': 'Black', 'ctermbg': 'Yellow',
@@ -52,7 +59,7 @@ colorscheme jellybeans
 
 " Leader Key is \ or , but can be set with
 let mapleader=","
-
+set omnifunc=syntaxcomplete#Complete
 " Copy & Paste
 set pastetoggle=<F2>
 set clipboard=unnamed
@@ -122,7 +129,6 @@ if has("autocmd")
 endif
 
 if has('gui_running')
-    " set guifont=Consolas\ 11
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
 endif
 
@@ -154,6 +160,9 @@ endif
 
 nmap <silent> <leader>s :set spell!<CR>
 set spelllang=es
+
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " --------------------------------------------------------------------
 " Plugins
@@ -201,7 +210,7 @@ vmap <Leader>a< :Tabularize /=><CR>
 let php_sql_query = 0
 let php_htmlInStrings = 1
 let php_noShortTags = 1
-let php_folding = 1
+let php_folding = 0
 
 "https://github.com/othree/html5.vim.git
 let g:html5_event_handler_attributes_complete = 0
@@ -324,7 +333,6 @@ map <leader>ec :tabe application/modules/
 " -----------------------------------------------------------------------------
 " RENAME CURRENT FILE (thanks Gary Bernhardt)
 " -----------------------------------------------------------------------------
-
 function! RenameFile()
     let old_name = expand('%')
     let new_name = input('New file name: ', expand('%'), 'file')
@@ -335,6 +343,27 @@ function! RenameFile()
     endif
 endfunction
 map <Leader>n :call RenameFile()<cr>
+
+
+" -----------------------------------------------------------------------------
+" http://vim.wikia.com/wiki/VimTip431
+" -----------------------------------------------------------------------------
+function! ToggleSlash(independent) range
+  let from = ''
+  for lnum in range(a:firstline, a:lastline)
+    let line = getline(lnum)
+    let first = matchstr(line, '[/\\]')
+    if !empty(first)
+      if a:independent || empty(from)
+        let from = first
+      endif
+      let opposite = (from == '/' ? '\' : '/')
+      call setline(lnum, substitute(line, from, opposite, 'g'))
+    endif
+  endfor
+endfunction
+command! -bang -range ToggleSlash <line1>,<line2>call ToggleSlash(<bang>1)
+noremap <silent> <F8> :ToggleSlash<CR>
 
 " -----------------------------------------------------------------------------
 " Funciones vimcast.org

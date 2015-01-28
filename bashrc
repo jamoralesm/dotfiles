@@ -139,6 +139,8 @@ function gcommit() {
 alias bhelp='jekyll serve -s ~/public_html/ayuda/bootstrap/ -d ~/public_html/ayuda/bootstrap3/'
 
 alias vim='stty -ixon -ixoff && vim'
+alias vi='vim'
+alias tmux='tmux -2'
 
 alias mcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 30'
 alias gcam='ffmpeg -f video4linux2 -s vga -i /dev/video0 cam.mpg'
