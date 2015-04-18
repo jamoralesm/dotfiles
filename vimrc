@@ -85,7 +85,7 @@ set colorcolumn=81
 set hidden
 " set nowrap
 set wrap
-set showbreak=↪…
+set showbreak=↪… 
 set linebreak
 highlight ColorColumn ctermbg=239
 set nobackup
@@ -97,7 +97,7 @@ set undofile
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 
-set cm=blowfish
+set cm=blowfish2
 
 if has("autocmd")
     autocmd!
@@ -112,6 +112,8 @@ if has("autocmd")
     " Syntax of these languages is fussy over tabs Vs spaces
     autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+    autocmd FileType php UltiSnipsAddFiletypes codeigniter
 
     " Treat .rss files as XML
     autocmd BufNewFile,BufRead *.rss setfiletype xml
@@ -167,7 +169,7 @@ nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 " --------------------------------------------------------------------
 " Plugins
 " --------------------------------------------------------------------
-
+let g:sparkupNextMapping="<c-ñ-e>"
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -181,6 +183,11 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 " let g:airline#extensions#tabline#left_alt_sep = '|'
 
+if ! has('gui_running')
+    let g:airline_left_sep='|'
+    let g:airline_right_sep='|'
+endif
+
 "https://github.com/kien/ctrlp.vim.git
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -190,9 +197,6 @@ let g:ctrlp_cmd = 'CtrlP'
 " let g:gundo_preview_height = 40
 " let g:gundo_right = 1
 nnoremap <F4> :GundoToggle<CR>
-
-"https://github.com/tomtom/tcomment_vim.git
-map <Leader>c  <c-_><c-_>
 
 "git://github.com/godlygeek/tabular.git
 nmap <Leader>a= :Tabularize /=<CR>
@@ -219,35 +223,14 @@ let g:html5_microdata_attributes_complete = 0
 let g:html5_aria_attributes_complete = 0
 
 "https://github.com/joonty/vim-phpqa.git
-" vmap <Leader>qa
-" vmap <Leader>qc
-" :Php - check for syntax errors
-" :Phpcs - run code sniffer
-" :Phpmd - run mess detector (will ask for a rule XML file if not set)
-" :Phpcc - show code coverage (will ask for a clover XML file if not set)
 "" let g:phpqa_messdetector_ruleset ="/home/jamoralesm/.vim/bundle/vim-phpqa/extra/phpmd/setup/src/main/xml/exts/phpmd.xml"
 let g:phpqa_codesniffer_args = "--standard=PEAR"
-" PHP executable (default = php)
-"" let g:phpqa_php_cmd='/usr/bin/php'
-" PHP Code Sniffer binary (default = phpcs)
-"" let g:phpqa_codesniffer_cmd='/usr/bin/phpcs'
-" PHP Mess Detector binary (default = phpmd)
-"" let g:phpqa_messdetector_cmd='/usr/bin/phpmd'
-" Don't run messdetector on save (default = 1)
 let g:phpqa_messdetector_autorun = 0
-" Don't run codesniffer on save (default = 1)
 let g:phpqa_codesniffer_autorun = 0
-" Show code coverage on load (default = 0)
-" let g:phpqa_codecoverage_autorun = 1
+let g:phpqa_codecoverage_autorun = 0
 
 "https://github.com/Lokaltog/vim-easymotion.git
-" let g:EasyMotion_leader_key = '<Leader>'
-
-"https://github.com/tpope/vim-surround.git
-" Visual mode
-" yssb or yss+something
-" S for add a { surrounding }
-" gS idem but text in a new line plus indent
+let g:EasyMotion_leader_key = 'ñ'
 
 "https://github.com/tpope/vim-unimpaired.git
 " Bubble single lines
@@ -294,18 +277,6 @@ map <c-h> <c-w>h
 " Move between tabs
 map <Leader>ñ <esc>:tabnext<CR>
 map <Leader>m <esc>:tabprevious<CR>
-" map <C-]> gt
-" map <C-[> gT
-map <C-1> 1gt
-map <C-2> 2gt
-map <C-3> 3gt
-map <C-4> 4gt
-map <C-5> 5gt
-map <C-6> 6gt
-map <C-7> 7gt
-map <C-8> 8gt
-map <C-9> 9gt
-map <C-0> :tablast<CR>
 
 " map sort
 vnoremap <Leader>s :sort<CR>
@@ -327,8 +298,7 @@ map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
-
-map <leader>ec :tabe application/modules/
+map <leader>eq :e <C-R>=fnameescape(expand('%:h:h')).'/'<cr>
 
 " -----------------------------------------------------------------------------
 " RENAME CURRENT FILE (thanks Gary Bernhardt)
@@ -459,4 +429,5 @@ vmap <Leader>if "tyOif (<ESC>"tpa) {<ESC>jo}<ESC>k>><ESC>
 vmap <Leader>n "ddiis_null()<ESC>Pla ? <ESC>"dpa : 0<ESC>
 vmap <Leader>N "tyOif (!is_null(<ESC>"tpa)) {<ESC>jo}<ESC>k>><ESC>
 vmap <Leader>ic "tdOif (<ESC>"tpa) {<ESC>jo} else {<CR>}<ESC>2k>><ESC>
+nmap <Leader>rl 0f(a<CR><ESC>f,a<CR><ESC>f)i<CR><ESC>
 

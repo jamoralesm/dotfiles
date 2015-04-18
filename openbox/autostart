@@ -33,11 +33,11 @@ nitrogen --restore &
 (sleep 3s && xpad) &
 (sleep 3s && guake) &
 (sleep 3s && clipit) &
-(sleep 3s && dropboxd) &
 
+(sleep 5s && dropboxd) &
 
 ## Optionally enable file manager in daemon mode for automounting
-# (sleep 1s && thunar --daemon) &
+(sleep 1s && thunar --daemon) &
 
 ## Optionally enable screensaver
 #(sleep 1s && xautolock -time 15 -locker 'xlock -mode blank') &

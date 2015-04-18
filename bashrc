@@ -75,12 +75,6 @@ ex ()
     fi
 }
 
-
-# Functions
-if [ -e $HOME/.local/lib/phpsys ]; then
-    source $HOME/.local/lib/phpsys
-fi
-
 # Contador tiempo de tarea
 function ctt() {
     wfile="$HOME/tmp/worktime";
@@ -141,6 +135,7 @@ alias bhelp='jekyll serve -s ~/public_html/ayuda/bootstrap/ -d ~/public_html/ayu
 alias vim='stty -ixon -ixoff && vim'
 alias vi='vim'
 alias tmux='tmux -2'
+alias upcomposer='curl -sS https://getcomposer.org/installer | php && mv composer.phar ~/.local/bin/composer'
 
 alias mcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 30'
 alias gcam='ffmpeg -f video4linux2 -s vga -i /dev/video0 cam.mpg'

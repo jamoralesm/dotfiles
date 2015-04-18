@@ -1,17 +1,312 @@
-snippet controller "CI Controller" c
+# Head close
+snippet cihc
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
+${0}
+endsnippet
+
+# Head open
+snippet cih
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+${0}
+endsnippet
+
+# Controller
+snippet cic
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class ${1:ClassName} extends CI_Controller
 {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		${2:// code...}
 	}
 
-	function ${3:index}()
+	${4:public }function ${3:index}()
 	{
-		${4:// code...}
+		${5:// code...}
+	}${0}
+}
+endsnippet
+
+# Controller
+snippet cicc
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class ${1:ClassName} extends CI_Controller
+{
+	public function __construct()
+	{
+		parent::__construct();
+		${2:// code...}
+	}
+
+	${14:public }function ${13:index}()
+	{
+		${15:// code...}
+	}
+
+	${4:public }function ${3:agregar}()
+	{
+		if ($this->_valid() == FALSE) {
+			$data = array(
+				'titulo' => 'Titulo',
+			);
+			${5:// code...}
+		} else {
+			if ($this->model->save($id)) {
+				$this->session->set_flashdata('success', 'Registro guardado!');
+			} else {
+				$this->session->set_flashdata('error', 'Error al actualizar el registro, por favor intentelo nuevamente, si el problema persiste contacte al administrador');
+			}
+			redirect(${6:$this->uri->segment(0)});
+		}
+	}
+
+	public function eliminar($id = NULL)
+	{
+		$this->_exists($id);
+
+		if ($this->model->delete($id)) {
+			$this->session->set_flashdata('success', 'Registro Eliminado!');
+		} else {
+			$this->session->set_flashdata('error', 'Ocurrio un error eliminando, por favor vuelva a intentelo.');
+		}
+
+		redirect(${11:$6});
+	}
+
+	private function _exists($id = NULL)
+	{
+		if (! ${7:preg_match('${8:/^\d{7,}k?$/}', $id)}) {
+			$this->session->set_flashdata('error', '${9:RUT ingresado no v&aacute;lido.}');
+			redirect(${10:$6});
+		}
+		if (! $this->model->exists($id)) {
+			$this->session->set_flashdata('error', 'El RUT ingresado no existe en los registros.');
+			redirect($10);
+		}
+
+	}
+
+	${12:private function _valid()
+	{
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules(array(
+			array(
+				'field' => 'field',
+				'label' => 'label',
+				'rules' => 'trim|required',
+			),
+		));
+
+		return $this->form_validation->run();
+	}}${0}
+}
+endsnippet
+
+# Model
+snippet cim
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class ${1:ClassName_model} extends CI_Model
+{
+	public function __construct()
+	{
+		parent::__construct();
+		${2:// code...}
+	}${0}
+}
+endsnippet
+
+# Model CRUD
+snippet cimc
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class ${1:ClassName}_model extends CI_Model
+{
+	private $table = '${2:$1}';
+
+	public function __construct()
+	{
+		parent::__construct();
+		${6:// code...}
+	}${0}
+
+	/**
+	 * save
+	 *
+	 * @param int $id
+	 * @access public
+	 * @return boolean
+	 */
+	public function save($id = NULL)
+	{
+		$data = array(
+			'${3:cnombre}' => $this->input->post('$3'),
+		);
+
+		if (is_null($id))
+			return $this->db->insert($this->table, $data);
+		else
+			return $this->db->update($this->table, $data, array('${4:id}' => $id));
+	}
+
+	/**
+	 * exists
+	 *
+	 * @param int $id
+	 * @access public
+	 * @return boolean
+	 */
+	public function exists($id)
+	{
+		$result = $this->db
+			->select('$4')
+			->get_where($this->table, array('$4' => $id));
+		return $result->num_rows() > 0 ? TRUE : FALSE;
+	}
+
+	/**
+	 * get
+	 *
+	 * @param int $id
+	 * @access public
+	 * @return boolean
+	 */
+	public function get($id)
+	{
+		return $this->db->get_where($this->table, array('$4' => $id))->row();
+	}
+
+	/**
+	 * delete
+	 *
+	 * @param mixed $id (int o array of int)
+	 * @access public
+	 * @return boolean
+	 */
+	public function delete($id)
+	{
+		if(is_array($id)) {
+			$this->db->trans_start();
+			foreach($id as $elem)
+				$this->delete($elem);
+			$this->db->trans_complete();
+		} else {
+			return $this->db->update($this->table, array('${5:del}' => 1), array('$4' => $id))
+				? true
+				: false;
+		}
+	}
+
+	/**
+	 * get_list
+	 *
+	 * @param int $limit
+	 * @param int $init
+	 * @param mixed $search
+	 * @access public
+	 * @return boolean
+	 */
+	public function get_list($limit = NULL , $init = 0 , $search = NULL)
+	{
+		if(!is_null($limit))
+			$this->db->limit($limit, $init);
+
+		if (!is_null($search))
+			if (!es_natural($search))
+				$this->db->like('$3', $search);
+			else
+				$this->db->where('$4', $search);
+
+		return $this->db->get_where($this->table, array('$5' => 0))->result();
 	}
 }
 endsnippet
+
+snippet ipost
+$this->input->post('${1:${VISUAL:cname}}');${0}
+endsnippet
+
+snippet vipost
+$${1:${VISUAL:varname}} = $this->input->post('${2:$1}');${0}
+endsnippet
+
+snippet aipost
+'${1:${VISUAL:varname}}' => $this->input->post('${2:$1}'),${0}
+endsnippet
+
+snippet iget
+$this->input->get('${1:${VISUAL:cname}}');${0}
+endsnippet
+
+snippet viget
+$${1:${VISUAL:varname}} = $this->input->get('${2:$1}');${0}
+endsnippet
+
+snippet aiget
+'${1:${VISUAL:varname}}' => $this->input->get('${2:$1}'),${0}
+endsnippet
+
+snippet cilv
+$this->load->view('${1:${VISUAL:view_name}}'${2:, $${3:data}});${0}
+endsnippet
+
+snippet cilm
+$this->load->model('${1:${VISUAL:model_name}}_model'${2:, '${3:model}}');${0}
+endsnippet
+
+snippet cilh
+$this->load->helper('${1:${VISUAL:helper}}');${0}
+endsnippet
+
+snippet cill
+$this->load->library('${1:${VISUAL:library}}');${0}
+endsnippet
+
+snippet cifvsr
+$this->form_validation->set_rules(${1:'${2:field}', '${3:label}', '${4:trim|required}'});${0}
+endsnippet
+
+snippet cisra
+array(
+    'field' => '${1:field}',
+    'label' => '${2:label}',
+    'rules' => '${3:trim|required}',
+),${0}
+endsnippet
+
+snippet cifvr
+$this->form_validation->run();
+endsnippet
+
+snippet cifvsed
+$this->form_validation->set_error_delimiters('${1:<div>}', '${2:</div>}');
+endsnippet
+
+snippet cive
+validation_errors();${0}
+endsnippet
+
+snippet cisu
+$this->session->userdata('${1:item}');${0}
+endsnippet
+
+snippet cissu
+$this->session->set_userdata($${1:array});${0}
+endsnippet
+
+snippet cisf
+$this->session->flashdata('${1:item}');${0}
+endsnippet
+
+snippet cissf
+$this->session->set_flashdata('${1:item}', '${2:value}');${0}
+endsnippet
+
+snippet cius
+$this->uri->segment(${1:segment});${0}
+endsnippet
+
