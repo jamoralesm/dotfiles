@@ -31,8 +31,11 @@ nitrogen --restore &
 
 ###
 (sleep 3s && xpad) &
-(sleep 3s && guake) &
+# (sleep 3s && guake) &
+(sleep 3s && tilda) &
 (sleep 3s && clipit) &
+(sleep 3s && volumeicon) &
+# (sleep 3s && blueman-applet) &
 
 (sleep 5s && dropboxd) &
 

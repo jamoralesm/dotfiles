@@ -355,16 +355,19 @@
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
         <command>amixer set Master 10%+</command>
+        <!-- <command>sh &#45;c "pactl set&#45;sink&#45;mute 0 false ; pactl set&#45;sink&#45;volume 0 +5%"</command> -->
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
         <command>amixer set Master 10%-</command>
+        <!-- <command>sh &#45;c "pactl set&#45;sink&#45;mute 0 false ; pactl &#45;&#45; set&#45;sink&#45;volume 0 &#45;5%"</command> -->
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
       <action name="Execute">
         <command>amixer set Master toggle</command>
+        <!-- <command>pactl set&#45;sink&#45;mute 0 toggle</command> -->
       </action>
     </keybind>
     <keybind key="XF86AudioPlay">
