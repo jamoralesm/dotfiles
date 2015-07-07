@@ -20,6 +20,9 @@ fi
 if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+if [ -d "$HOME/.gem/ruby/2.2.0/bin" ]; then
+    PATH="$HOME/.gem/ruby/2.2.0/bin:$PATH"
+fi
 
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
@@ -146,9 +149,10 @@ alias mount='sudo mount'
 alias fsckforse='sudo touch /forcefsck'
 alias extendscreenv='xrandr --output VGA1 --right-of LVDS1'
 alias extendscreen='xrandr --output HDMI1 --right-of LVDS1'
-alias clonscreenv='xrandr --output VGA1 --mode 1366x768'
+alias clonscreenv='xrandr --output VGA1 --mode '
 alias clonscreen17='xrandr --output VGA1 --mode 1024x768'
 alias clonscreen18='xrandr --output VGA1 --mode 1280x800'
+alias clonscreen1280x720='xrandr --output VGA1 --mode 1280x720'
 # alias clonscreenv='xrandr --output VGA1 --mode 1280x1024'
 alias clonscreen='xrandr --output HDMI1 --mode 1366x768'
 alias shutclonev='xrandr --output VGA1 --off'
@@ -156,7 +160,6 @@ alias shutclone='xrandr --output HDMI1 --off'
 alias shutscreen='xset dpms force off'
 alias grep='grep --color=always'
 alias ls='ls --color=always'
-alias pacman='sudo pacman'
 alias pomodoro='sh pomodoro 25 "Pomodoro" "Pomodoro iniciado, tienes que trabajar 25 minutos" "Pomodoro finalizado. Por favor para de trabajar y tomate un descanso de 5 minutos"'
 alias wvdial='wvdial.sh'
 alias upjdownloader='java -jar ~/.jd/jdupdate.jar -branch NIGHTLY'
