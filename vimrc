@@ -24,6 +24,7 @@ Plugin 'tpope/vim-surround.git'
 Plugin 'nelstrom/vim-visual-star-search.git'
 " Plugin 'scrooloose/nerdtree.git'
 Plugin 'tpope/vim-fugitive.git'
+Plugin 'tpope/vim-rails'
 Plugin 'vim-scripts/loremipsum.git'
 Plugin 'rstacruz/sparkup.git'
 Plugin 'cakebaker/scss-syntax.vim.git'
@@ -42,13 +43,13 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Use the colorscheme from above
-set t_Co=256
 if has('gui_running')
     set background=light
 else
     set background=dark
 endif
 colorscheme solarized
+set t_Co=256
 
 " colorscheme jellybeans
 " let g:jellybeans_overrides = {
@@ -59,6 +60,8 @@ colorscheme solarized
 
 " Leader Key is \ or , but can be set with
 let mapleader=","
+set encoding=utf-8
+set fileencoding=utf-8
 set omnifunc=syntaxcomplete#Complete
 " Copy & Paste
 set pastetoggle=<F2>
@@ -131,7 +134,7 @@ if has("autocmd")
 endif
 
 if has('gui_running')
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
+    set guifont=Liberation\ Mono\ for\ Powerline
 endif
 
 
@@ -183,10 +186,10 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 " let g:airline#extensions#tabline#left_alt_sep = '|'
 
-if ! has('gui_running')
-    let g:airline_left_sep='|'
-    let g:airline_right_sep='|'
-endif
+" if ! has('gui_running')
+"     let g:airline_left_sep='|'
+"     let g:airline_right_sep='|'
+" endif
 
 "https://github.com/kien/ctrlp.vim.git
 let g:ctrlp_map = '<c-p>'
