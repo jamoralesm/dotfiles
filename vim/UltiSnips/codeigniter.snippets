@@ -46,7 +46,7 @@ class ${1:ClassName} extends CI_Controller
 		${15:// code...}
 	}
 
-	${4:public }function ${3:agregar}()
+	${4:public }function ${3:add}()
 	{
 		if ($this->_valid() == FALSE) {
 			$data = array(
@@ -63,7 +63,7 @@ class ${1:ClassName} extends CI_Controller
 		}
 	}
 
-	public function eliminar($id = NULL)
+	public function delete($id = NULL)
 	{
 		$this->_exists($id);
 
@@ -78,12 +78,12 @@ class ${1:ClassName} extends CI_Controller
 
 	private function _exists($id = NULL)
 	{
-		if (! ${7:preg_match('${8:/^\d{7,}k?$/}', $id)}) {
-			$this->session->set_flashdata('error', '${9:RUT ingresado no v&aacute;lido.}');
+		if (! ${7:preg_match('/^${8:\d{7,}k?}$/', $id)}) {
+			$this->session->set_flashdata('error', '${9:ID NO v&aacute;lido.}');
 			redirect(${10:$6});
 		}
 		if (! $this->model->exists($id)) {
-			$this->session->set_flashdata('error', 'El RUT ingresado no existe en los registros.');
+			$this->session->set_flashdata('error', 'El ID NO existe');
 			redirect($10);
 		}
 
@@ -196,8 +196,8 @@ class ${1:ClassName}_model extends CI_Model
 			$this->db->trans_complete();
 		} else {
 			return $this->db->update($this->table, array('${5:del}' => 1), array('$4' => $id))
-				? true
-				: false;
+				? TRUE
+				: FALSE;
 		}
 	}
 
@@ -216,7 +216,7 @@ class ${1:ClassName}_model extends CI_Model
 			$this->db->limit($limit, $init);
 
 		if (!is_null($search))
-			if (!es_natural($search))
+			if (!is_numeric($search))
 				$this->db->like('$3', $search);
 			else
 				$this->db->where('$4', $search);

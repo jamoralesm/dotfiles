@@ -16,8 +16,8 @@ draw_shades no
 
 #position
 gap_x 0
-gap_y 4
-alignment buttom_middle
+gap_y 0
+alignment top_middle
 
 #behaviour
 update_interval 1

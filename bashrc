@@ -2,6 +2,8 @@ export EDITOR=vim
 export EDITORIDE=gvim
 export GREP_COLOR="36;1;1"
 
+export QT_STYLE_OVERRIDE=gtk
+
 
 
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=setting'
@@ -17,6 +19,9 @@ if [ -d "/opt/android-sdk/platform-tools/" ]; then
     PATH="/opt/android-sdk/platform-tools/:$PATH"
 fi
 
+if [ -d "$HOME/.composer/vendor/bin" ]; then
+    PATH="$HOME/.composer/vendor/bin:$PATH"
+fi
 if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
@@ -164,6 +169,8 @@ alias pomodoro='sh pomodoro 25 "Pomodoro" "Pomodoro iniciado, tienes que trabaja
 alias wvdial='wvdial.sh'
 alias upjdownloader='java -jar ~/.jd/jdupdate.jar -branch NIGHTLY'
 alias chromium='chromium --proxy-server="socks://localhost:9050" --no-referrers'
+
+alias starwars="telnet towel.blinkenlights.nl"
 
 
 

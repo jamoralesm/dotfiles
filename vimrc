@@ -38,6 +38,8 @@ Plugin 'honza/vim-snippets'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'altercation/vim-colors-solarized'
 
+Plugin 'sudar/vim-arduino-syntax'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -163,7 +165,7 @@ if executable("par")
     set formatprg=par\ -w80jeq
 endif
 
-nmap <silent> <leader>s :set spell!<CR>
+nmap <silent> gs :set spell!<CR>
 set spelllang=es
 
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
@@ -194,6 +196,7 @@ let g:airline#extensions#tabline#left_sep = ' '
 "https://github.com/kien/ctrlp.vim.git
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+map ñp :CtrlPBuffer<CR>
 
 "http://github.com/sjl/gundo.vim.git
 " let g:gundo_width = 60
@@ -278,8 +281,8 @@ map <c-l> <c-w>l
 map <c-h> <c-w>h
 
 " Move between tabs
-map <Leader>ñ <esc>:tabnext<CR>
-map <Leader>m <esc>:tabprevious<CR>
+map <Leader>ñ <esc>:bn<CR>
+map <Leader>m <esc>:bp<CR>
 
 " map sort
 vnoremap <Leader>s :sort<CR>
