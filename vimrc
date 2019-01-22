@@ -16,9 +16,13 @@ Plugin 'kien/ctrlp.vim.git'
 Plugin 'sjl/gundo.vim.git'
 Plugin 'tomtom/tcomment_vim.git'
 Plugin 'godlygeek/tabular.git'
+
 Plugin 'StanAngeloff/php.vim.git'
-Plugin 'othree/html5.vim.git'
+" Plugin 'rayburgemeestre/phpfolding.vim'
+Plugin '2072/PHP-Indenting-for-VIm'
 Plugin 'joonty/vim-phpqa.git'
+
+Plugin 'othree/html5.vim.git'
 Plugin 'Lokaltog/vim-easymotion.git'
 Plugin 'tpope/vim-surround.git'
 Plugin 'nelstrom/vim-visual-star-search.git'
@@ -40,9 +44,12 @@ Plugin 'altercation/vim-colors-solarized'
 
 Plugin 'sudar/vim-arduino-syntax'
 
+Plugin 'koron/nyancat-vim.git'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+
 
 " Use the colorscheme from above
 if has('gui_running')
@@ -61,7 +68,7 @@ set t_Co=256
 " \}
 
 " Leader Key is \ or , but can be set with
-let mapleader=","
+let mapleader="ñ"
 set encoding=utf-8
 set fileencoding=utf-8
 set omnifunc=syntaxcomplete#Complete
@@ -73,7 +80,7 @@ set shiftwidth=4
 set expandtab
 set smarttab
 set showcmd
-set nonumber
+set number
 set relativenumber
 set showmatch
 set hlsearch
@@ -101,7 +108,9 @@ set undodir=~/.vim/undodir
 set undofile
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-
+"Opciones de impresión 
+set printoptions=number:yes 
+set printheader=%<%f%h%m%=Pag.:\ %N\ de\ %{line('$')/73+1} 
 set cm=blowfish2
 
 if has("autocmd")
@@ -158,7 +167,7 @@ set listchars=tab:▸\ ,eol:¬
 highlight NonText guifg=#4a4a59
 highlight SpecialKey guifg=#4a4a59
 
-" set foldmethod=manual
+set foldmethod=manual
 command! -nargs=* Wrap set wrap linebreak nolist
 
 if executable("par")
@@ -216,8 +225,12 @@ vmap <Leader>a; :Tabularize /;<CR>
 nmap <Leader>a< :Tabularize /=><CR>
 vmap <Leader>a< :Tabularize /=><CR>
 
+" https://github.com/rayburgemeestre/phpfolding.vim
+" map <F9> <Esc>:EnableFastPHPFolds<CR>
+" map <F10> <Esc>:EnablePHPFolds<CR>
+" map <F11> <Esc>:DisablePHPFolds<CR> 
 "https://github.com/StanAngeloff/php.vim.git
-let php_sql_query = 0
+let php_sql_query = 1
 let php_htmlInStrings = 1
 let php_noShortTags = 1
 let php_folding = 0
@@ -229,9 +242,9 @@ let g:html5_microdata_attributes_complete = 0
 let g:html5_aria_attributes_complete = 0
 
 "https://github.com/joonty/vim-phpqa.git
-"" let g:phpqa_messdetector_ruleset ="/home/jamoralesm/.vim/bundle/vim-phpqa/extra/phpmd/setup/src/main/xml/exts/phpmd.xml"
-let g:phpqa_codesniffer_args = "--standard=PEAR"
-let g:phpqa_messdetector_autorun = 0
+let g:phpqa_messdetector_ruleset ="unusedcode" ",~/.vim/phpdm.xml" ",codesize,naming,tional_relative_path_to_custom_ruleset.xml
+let g:phpqa_codesniffer_args = "--standard=PSR2" "The installed coding standards are Zend, PSR2, Squiz, PEAR, MySource and PSR1
+let g:phpqa_messdetector_autorun = 1
 let g:phpqa_codesniffer_autorun = 0
 let g:phpqa_codecoverage_autorun = 0
 
@@ -245,7 +258,12 @@ nmap <C-Down> ]e
 " Bubble multiple lines
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
-
+nmap < [
+nmap > ]
+omap < [
+omap > ]
+xmap < [
+xmap > ]
 " --------------------------------------------------------------------
 " KeyBinding
 " --------------------------------------------------------------------
@@ -291,6 +309,9 @@ vnoremap <Leader>s :sort<CR>
 vnoremap < <gv
 vnoremap > >gv
 
+nmap >> :><CR>
+nmap << :<<CR>
+
 " easier formatting of paragraphs
 vmap Q gq
 nmap Q gqap
@@ -305,6 +326,8 @@ map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
 map <leader>eq :e <C-R>=fnameescape(expand('%:h:h')).'/'<cr>
+
+nmap <Leader>i :hardcopy > %:t.pdf<CR>
 
 " -----------------------------------------------------------------------------
 " RENAME CURRENT FILE (thanks Gary Bernhardt)
@@ -423,17 +446,5 @@ endfunction
 " --------------------------------------------------------------------
 nmap <Leader>d @='Yp'<CR>
 vmap <Leader>d ygv<ESC>pgv
-nmap <Leader>k ^di'O<ESC>pa AS <ESC>j^dt(di'k$pjdd
-vmap <Leader>k "yyoecho '<pre> '; print_r()<ESC>"yPA; echo '</pre>';<ESC>F$ve"yy^f>"yp
-nmap <Leader>' vi(S'
-nmap <Leader>" vi(S"
-nmap <Leader>w viwS'
-vmap <Leader>f "tdiIF(<ESC>"tpa > 0, <ESC>"tpa, 0)<ESC>
-vmap <Leader>i "ddiisset()<ESC>Pla ? <ESC>"dpa : 0<ESC>
-vmap <Leader>I "tyOif (isset(<ESC>"tpa)) {<ESC>jo}<ESC>k>><ESC>
-vmap <Leader>if "tyOif (<ESC>"tpa) {<ESC>jo}<ESC>k>><ESC>
-vmap <Leader>n "ddiis_null()<ESC>Pla ? <ESC>"dpa : 0<ESC>
-vmap <Leader>N "tyOif (!is_null(<ESC>"tpa)) {<ESC>jo}<ESC>k>><ESC>
-vmap <Leader>ic "tdOif (<ESC>"tpa) {<ESC>jo} else {<CR>}<ESC>2k>><ESC>
-nmap <Leader>rl 0f(a<CR><ESC>f,a<CR><ESC>f)i<CR><ESC>
-
+nmap <Leader>W viwS'
+nmap <Leader>bw :bw<CR>

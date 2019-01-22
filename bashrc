@@ -28,6 +28,12 @@ fi
 if [ -d "$HOME/.gem/ruby/2.2.0/bin" ]; then
     PATH="$HOME/.gem/ruby/2.2.0/bin:$PATH"
 fi
+if [ -d "$HOME/.gem/ruby/2.3.0/bin" ]; then
+    PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
+fi
+if [ -d "$HOME/.composer/vendor/bin" ]; then
+    PATH="$HOME/.composer/vendor/bin:$PATH"
+fi
 
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
@@ -135,7 +141,12 @@ function resetper() {
 }
 
 function gcommit() {
-    git commit -am "$1"; git pull; git push;
+    git add .; git commit -am "$1"; git pull; git push;
+}
+
+function gns3() {
+    # systemctl enable gns3-server@USER
+    systemctl start gns3-server@jamoralesm
 }
 
 alias bhelp='jekyll serve -s ~/public_html/ayuda/bootstrap/ -d ~/public_html/ayuda/bootstrap3/'
@@ -145,11 +156,21 @@ alias vi='vim'
 alias tmux='tmux -2'
 alias upcomposer='curl -sS https://getcomposer.org/installer | php && mv composer.phar ~/.local/bin/composer'
 
+function homestead() {
+    ( cd ~/Homestead && vagrant $* )
+}
+alias ifhome='sudo ifconfig vboxnet0 up'
+
+
+alias startminidlna='minidlnad -f /home/$USER/.config/minidlna/minidlna.conf -P /home/$USER/.config/minidlna/minidlna.pid'
 alias mcam='mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 30'
 alias gcam='ffmpeg -f video4linux2 -s vga -i /dev/video0 cam.mpg'
 alias cgmpg2avi='mencoder out.mpg -ovc lavc -lavcopts vcodec=mpeg4 -o out2.avi'
 alias screencast='ffmpeg -f x11grab -s 1366x768 -r 10 -i :0.0 -qscale 0 -r 25 screencast.mpg'
 
+alias w7='vboxmanage startvm W7EntX64'
+alias verbios='sudo dmidecode -t 0 | grep Version'
+alias verprocesador='cat /proc/cpuinfo'
 alias mount='sudo mount'
 alias fsckforse='sudo touch /forcefsck'
 alias extendscreenv='xrandr --output VGA1 --right-of LVDS1'
@@ -169,10 +190,17 @@ alias pomodoro='sh pomodoro 25 "Pomodoro" "Pomodoro iniciado, tienes que trabaja
 alias wvdial='wvdial.sh'
 alias upjdownloader='java -jar ~/.jd/jdupdate.jar -branch NIGHTLY'
 alias chromium='chromium --proxy-server="socks://localhost:9050" --no-referrers'
+alias ntpupdate='sudo ntpdate ntp.shoa.cl'
 
 alias starwars="telnet towel.blinkenlights.nl"
 
 
+alias scaniw='sudo iw dev wlp3s0 scan | grep "SSID\|freq\|DS\|signal"'
+alias xp='xprop | grep "WM_WINDOW_ROLE\|WM_CLASS" && echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\""'
+
+
+source /home/jamoralesm/.local/bin/git-prompt.sh
 
 # prompt
-PS1='\n[\u@\h \W] \n> '
+PS1="[\u@\h \W] \$(__git_ps1 'GIT::(%s)') $ "
+

@@ -81,3 +81,10 @@ endsnippet
 snippet av "" i
 ${1:'${2:key}' => }${3:'${4}'}${0:,}
 endsnippet
+
+snippet json "" i
+header('Cache-Control: no-cache, must-revalidate');
+header('Content-type: application/json');
+
+echo json_encode(${1:records});
+endsnippet

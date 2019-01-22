@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
   <resistance>
     <strength>10</strength>
@@ -39,7 +40,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>Turquoise Nights Ob</name>
+    <name>Adwaita Revisited Dark</name>
     <titleLayout>CMILN</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -176,49 +177,79 @@
   </dock>
   <keyboard>
     <chainQuitKey>C-g</chainQuitKey>
-
-  <!-- Keybindings for desktop switching -->
-  <keybind key="C-A-Left">
-    <action name="GoToDesktop"><to>left</to><wrap>no</wrap></action>
-  </keybind>
-  <keybind key="C-A-Right">
-    <action name="GoToDesktop"><to>right</to><wrap>no</wrap></action>
-  </keybind>
-  <keybind key="C-A-Up">
-    <action name="GoToDesktop"><to>up</to><wrap>no</wrap></action>
-  </keybind>
-  <keybind key="C-A-Down">
-    <action name="GoToDesktop"><to>down</to><wrap>no</wrap></action>
-  </keybind>
-  <keybind key="S-A-Left">
-    <action name="SendToDesktop"><to>left</to><wrap>no</wrap></action>
-  </keybind>
-  <keybind key="S-A-Right">
-    <action name="SendToDesktop"><to>right</to><wrap>no</wrap></action>
-  </keybind>
-  <keybind key="S-A-Up">
-    <action name="SendToDesktop"><to>up</to><wrap>no</wrap></action>
-  </keybind>
-  <keybind key="S-A-Down">
-    <action name="SendToDesktop"><to>down</to><wrap>no</wrap></action>
-  </keybind>
-  <keybind key="W-F1">
-    <action name="GoToDesktop"><to>1</to></action>
-  </keybind>
-  <keybind key="W-F2">
-    <action name="GoToDesktop"><to>2</to></action>
-  </keybind>
-  <keybind key="W-F3">
-    <action name="GoToDesktop"><to>3</to></action>
-  </keybind>
-  <keybind key="W-F4">
-    <action name="GoToDesktop"><to>4</to></action>
-  </keybind>
-  <keybind key="W-d">
-    <action name="ToggleShowDesktop"/>
-  </keybind>
-  <!-- Keybindings for windows -->
-
+    <!-- Keybindings for desktop switching -->
+    <keybind key="C-A-Left">
+      <action name="GoToDesktop">
+        <to>left</to>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="C-A-Right">
+      <action name="GoToDesktop">
+        <to>right</to>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="C-A-Up">
+      <action name="GoToDesktop">
+        <to>up</to>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="C-A-Down">
+      <action name="GoToDesktop">
+        <to>down</to>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="S-A-Left">
+      <action name="SendToDesktop">
+        <to>left</to>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="S-A-Right">
+      <action name="SendToDesktop">
+        <to>right</to>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="S-A-Up">
+      <action name="SendToDesktop">
+        <to>up</to>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="S-A-Down">
+      <action name="SendToDesktop">
+        <to>down</to>
+        <wrap>no</wrap>
+      </action>
+    </keybind>
+    <keybind key="W-F1">
+      <action name="GoToDesktop">
+        <to>1</to>
+      </action>
+    </keybind>
+    <keybind key="W-F2">
+      <action name="GoToDesktop">
+        <to>2</to>
+      </action>
+    </keybind>
+    <keybind key="W-F3">
+      <action name="GoToDesktop">
+        <to>3</to>
+      </action>
+    </keybind>
+    <keybind key="W-F4">
+      <action name="GoToDesktop">
+        <to>4</to>
+      </action>
+    </keybind>
+    <keybind key="W-d">
+      <action name="ToggleShowDesktop"/>
+    </keybind>
+    <!-- Keybindings for windows -->
     <keybind key="A-F4">
       <action name="Close"/>
     </keybind>
@@ -324,6 +355,24 @@
         </startupnotify>
       </action>
     </keybind>
+    <keybind key="W-p">
+      <action name="Execute">
+        <command>arandr</command>
+        <startupnotify>
+          <enabled>yes</enabled>
+          <name>ARandR</name>
+        </startupnotify>
+      </action>
+    </keybind>
+    <keybind key="W-k">
+      <action name="Execute">
+        <command>xscreensaver-command --lock</command>
+        <startupnotify>
+          <enabled>yes</enabled>
+          <name>LOCKSCREEN</name>
+        </startupnotify>
+      </action>
+    </keybind>
     <keybind key="XF86PowerOff">
       <action name="Execute">
         <command>oblogout</command>
@@ -335,7 +384,7 @@
     </keybind>
     <keybind key="Print">
       <action name="Execute">
-        <command>gnome-screenshot</command>
+        <command>gnome-screenshot -i</command>
         <startupnotify>
           <enabled>yes</enabled>
           <name>gnome-screenshot</name>
@@ -388,6 +437,11 @@
     <keybind key="XF86AudioPrev">
       <action name="Execute">
         <command>playerctl previous</command>
+      </action>
+    </keybind>
+    <keybind key="XF86TouchpadToggle">
+      <action name="Execute">
+        <command>~/.local/bin/trackpadtoggle</command>
       </action>
     </keybind>
   </keyboard>

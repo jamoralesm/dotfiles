@@ -45,6 +45,10 @@ TEXT
 #${image ~/.ConkyWizardTheme/pix/background3.png -p 0,0 -s 256x770}
 # ${if_running mocp}${exec mocp -Q %file | sed -e 's_/.*/__' -e 's_\..\{3\}$__' -e 's/_/ /g'} :: ${exec mocp -Q %tl} / ${exec mocp -Q %tt} [ ${exec mocp -Q %state} ] $endif
 
+${font DejaVu Sans:size=8}
+${GOTO 25}CPU0: ${color 1994d1}${cpu cpu0}%${color} CPU1: ${color 1994d1}${cpu cpu1}%${color} CPU2: ${color 1994d1}${cpu cpu2}%${color} CPU3: ${color 1994d1}${cpu cpu3}%${color}
+${font}
+
 ${font DejaVu Sans:size=8}${GOTO 25}Proceso${GOTO 133}PID${GOTO 175}CPU${GOTO 215}MEM${font}
 ${font DejaVu Sans:size=7}${GOTO 25}${top name 1}${GOTO 130}${top pid 1}${GOTO 170}${top cpu 1}${GOTO 210}${top mem 1}
 ${GOTO 25}${top name 2}${GOTO 130}${top pid 2}${GOTO 170}${top cpu 2}${GOTO 210}${top mem 2}

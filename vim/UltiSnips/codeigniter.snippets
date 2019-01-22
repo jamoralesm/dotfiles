@@ -310,3 +310,11 @@ snippet cius
 $this->uri->segment(${1:segment});${0}
 endsnippet
 
+snippet cit
+$this->config->item('${1:item}');${0}
+endsnippet
+
+snippet vcit
+$${1:varname} = $this->config->item('${2:item}');${0}
+endsnippet
+
