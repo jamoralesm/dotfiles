@@ -298,22 +298,22 @@
     </keybind>
     <keybind key="W-x">
       <action name="Execute">
-        <command>sakura</command>
+        <command>lxterminal</command>
         <startupnotify>
           <enabled>yes</enabled>
-          <name>sakura</name>
+          <name>lxterminal</name>
         </startupnotify>
       </action>
     </keybind>
-    <keybind key="W-t">
-      <action name="Execute">
-        <command>thunderbird</command>
-        <startupnotify>
-          <enabled>yes</enabled>
-          <name>thunderbird</name>
-        </startupnotify>
-      </action>
-    </keybind>
+    <!-- <keybind key="W-t"> -->
+    <!--   <action name="Execute"> -->
+    <!--     <command>thunderbird</command> -->
+    <!--     <startupnotify> -->
+    <!--       <enabled>yes</enabled> -->
+    <!--       <name>thunderbird</name> -->
+    <!--     </startupnotify> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
     <keybind key="W-f">
       <action name="Execute">
         <command>firefox</command>
@@ -334,6 +334,15 @@
         <startupnotify>
           <enabled>yes</enabled>
           <name>thunar</name>
+        </startupnotify>
+      </action>
+    </keybind>
+    <keybind key="W-s">
+      <action name="Execute">
+        <command>gnome-screenshot -ic</command>
+        <startupnotify>
+          <enabled>yes</enabled>
+          <name>screenshot</name>
         </startupnotify>
       </action>
     </keybind>
@@ -364,7 +373,7 @@
         </startupnotify>
       </action>
     </keybind>
-    <keybind key="W-k">
+    <keybind key="W-l">
       <action name="Execute">
         <command>xscreensaver-command --lock</command>
         <startupnotify>
@@ -878,6 +887,7 @@
     <application class="thunderbird">
     </application>
     <application class="firefox">
+      <decor>no</decor>
     </application>
     <application class="lxterminal">
       <decor>no</decor>

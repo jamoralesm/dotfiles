@@ -1,6 +1,6 @@
 export EDITOR=vim
 export EDITORIDE=gvim
-export GREP_COLOR="36;1;1"
+export GREP_COLOR="mt=36;1;1"
 
 export QT_STYLE_OVERRIDE=gtk
 
@@ -10,34 +10,19 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=setting'
 export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
 export JAVA_FONTS=/usr/share/fonts/TTF
 
-
-
-if [ -d "/opt/android-sdk/tools/" ]; then
-    PATH="/opt/android-sdk/tools/:$PATH"
-fi
-if [ -d "/opt/android-sdk/platform-tools/" ]; then
-    PATH="/opt/android-sdk/platform-tools/:$PATH"
-fi
-
 if [ -d "$HOME/.composer/vendor/bin" ]; then
     PATH="$HOME/.composer/vendor/bin:$PATH"
 fi
 if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
-if [ -d "$HOME/.gem/ruby/2.2.0/bin" ]; then
-    PATH="$HOME/.gem/ruby/2.2.0/bin:$PATH"
-fi
-if [ -d "$HOME/.gem/ruby/2.3.0/bin" ]; then
-    PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
-fi
 if [ -d "$HOME/.composer/vendor/bin" ]; then
     PATH="$HOME/.composer/vendor/bin:$PATH"
 fi
 
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
+# if [ -f /etc/bash_completion ]; then
+#     . /etc/bash_completion
+# fi
 
 xhost +local:root > /dev/null 2>&1
 
@@ -146,12 +131,11 @@ function gcommit() {
 
 function gns3() {
     # systemctl enable gns3-server@USER
-    systemctl start gns3-server@jamoralesm
+    systemctl start gns3-server@ja
 }
 
 alias bhelp='jekyll serve -s ~/public_html/ayuda/bootstrap/ -d ~/public_html/ayuda/bootstrap3/'
 
-alias vim='stty -ixon -ixoff && vim'
 alias vi='vim'
 alias tmux='tmux -2'
 alias upcomposer='curl -sS https://getcomposer.org/installer | php && mv composer.phar ~/.local/bin/composer'
@@ -168,7 +152,7 @@ alias gcam='ffmpeg -f video4linux2 -s vga -i /dev/video0 cam.mpg'
 alias cgmpg2avi='mencoder out.mpg -ovc lavc -lavcopts vcodec=mpeg4 -o out2.avi'
 alias screencast='ffmpeg -f x11grab -s 1366x768 -r 10 -i :0.0 -qscale 0 -r 25 screencast.mpg'
 
-alias w7='vboxmanage startvm W7EntX64'
+alias win='vboxmanage startvm W10'
 alias verbios='sudo dmidecode -t 0 | grep Version'
 alias verprocesador='cat /proc/cpuinfo'
 alias mount='sudo mount'
@@ -199,8 +183,8 @@ alias scaniw='sudo iw dev wlp3s0 scan | grep "SSID\|freq\|DS\|signal"'
 alias xp='xprop | grep "WM_WINDOW_ROLE\|WM_CLASS" && echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\""'
 
 
-source /home/jamoralesm/.local/bin/git-prompt.sh
+source /home/ja/.local/bin/git-prompt.sh
 
 # prompt
-PS1="[\u@\h \W] \$(__git_ps1 'GIT::(%s)') $ "
+PS1="[\u@\h \W] \$(__git_ps1 'GIT::(%s)') $ - "
 

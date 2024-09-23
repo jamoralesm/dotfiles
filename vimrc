@@ -18,7 +18,7 @@ Plugin 'tomtom/tcomment_vim.git'
 Plugin 'godlygeek/tabular.git'
 
 Plugin 'StanAngeloff/php.vim.git'
-" Plugin 'rayburgemeestre/phpfolding.vim'
+Plugin 'rayburgemeestre/phpfolding.vim'
 Plugin '2072/PHP-Indenting-for-VIm'
 Plugin 'joonty/vim-phpqa.git'
 
@@ -28,7 +28,7 @@ Plugin 'tpope/vim-surround.git'
 Plugin 'nelstrom/vim-visual-star-search.git'
 " Plugin 'scrooloose/nerdtree.git'
 Plugin 'tpope/vim-fugitive.git'
-Plugin 'tpope/vim-rails'
+" Plugin 'tpope/vim-rails'
 Plugin 'vim-scripts/loremipsum.git'
 Plugin 'rstacruz/sparkup.git'
 Plugin 'cakebaker/scss-syntax.vim.git'
@@ -73,8 +73,9 @@ set encoding=utf-8
 set fileencoding=utf-8
 set omnifunc=syntaxcomplete#Complete
 " Copy & Paste
+set nopaste
 set pastetoggle=<F2>
-set clipboard=unnamed
+set clipboard=unnamedplus
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -233,7 +234,7 @@ vmap <Leader>a< :Tabularize /=><CR>
 let php_sql_query = 1
 let php_htmlInStrings = 1
 let php_noShortTags = 1
-let php_folding = 0
+let php_folding = 1
 
 "https://github.com/othree/html5.vim.git
 let g:html5_event_handler_attributes_complete = 0

@@ -15,29 +15,29 @@ xset -dpms; xset s off &
 # compton --config ~/.config/compton.conf &
 
 ## Background
-nitrogen --restore &
-
+# nitrogen --restore &
+#
 ## Panel
 # (sleep 1s && tint2) &
 # (sleep 1s && plank) &
-(sleep 2s && trayer --expand true --transparent true  --alpha 255 --edge top --align right --expand true --SetDockType false --widthtype request --height 20) &
-
+# (sleep 2s && trayer --expand true --transparent true  --alpha 255 --edge top --align right --expand true --SetDockType false --widthtype request --height 20) &
+#
 ## Startup
-(sleep 1s && cbatticon) &
+#(sleep 1s && cbatticon) &
 (sleep 1s && synapse) &
-(sleep 2s && nm-applet) &
-(sleep 3s && conky -c ~/.config/conkyrc-top)&
-(sleep 3s && conky -c ~/.config/conkyrc-bottom)&
+#(sleep 2s && nm-applet) &
+(sleep 3s && conky -c ~/.dotfiles/conkyrc-top)&
+(sleep 3s && conky -c ~/.dotfiles/conkyrc-bottom)&
 
 ###
 (sleep 3s && xpad) &
 # (sleep 3s && guake) &
 (sleep 3s && tilda) &
-(sleep 3s && clipit) &
-(sleep 3s && volumeicon) &
+#(sleep 3s && clipit) &
+#(sleep 3s && volumeicon) &
 # (sleep 3s && blueman-applet) &
 
-(sleep 5s && dropboxd) &
+#(sleep 5s && dropboxd) &
 
 ## Optionally enable file manager in daemon mode for automounting
 (sleep 1s && thunar --daemon) &
